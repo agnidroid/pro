@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>myBookList : Store the books</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <!--  Bootstrap Css  -->
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="/Bootstrap/bootstrap-grid.css">
+
+    <!--  Bootstrap Js --
+    <script src="/Bootstrap/bootstrap.js"></script>--->
+</head>
+<body>
+    <section class="container-fluid m-0 p-0">
+        <header class="container-fluid mt-3">
+            <nav class="nav-wrapper text-center">
+                <span class="brand-logo text-center display-4">
+                    <i class="fa fa-book-open"></i>my<span class="text-primary">Book</span>List
+                </span>
+            </nav>
+        </header>
+
+        <main class="container-fluid m-0 p-0">    
+            <div class="container-fluid mt-3 pl-5 pr-5">
+                <div class="container-fluid pt-1 pb-1 d-none rounded bg-success text-light text-center" id="msg-box"></div>
+            </div>
+
+            <form action="" class="container-fluid pt-0 pb-0 pl-5 pr-5" autocomplete="off">
+                <div class="mt-3">
+                    <label for="title">Title</label>
+                    <input type="text" name="title" class="form-control">
+                </div>
+
+                <div class="mt-3">
+                    <label for="Author">Author</label>
+                    <input type="text" name="Author" class="form-control">
+                </div>
+
+                <div class="mt-3">
+                    <label for="ISBN">ISBN#</label>
+                    <input type="text" name="ISBN" class="form-control">
+                </div>
+
+                <button class="btn btn-primary w-100 mt-4">Add Book</button>
+            </form>
+
+            <div class="container-fluid p-0 directory" style="transition: .5s all ease;padding: 0 25px !important; bottom: 0;position: absolute;z-index: 99999;">
+                <style>
+                    tr{
+                        width: 100%;
+                        margin-right: auto;
+                        margin-left: auto;
+
+                        display: -ms-flexbox;
+                        display: flex;
+                        -ms-flex-wrap: wrap;
+                        flex-wrap: wrap;
+                    }
+                    tr:first-child{
+                        border-bottom: 1px solid #dee2e6;
+                    }
+                    th:first-child{                        
+                        -ms-flex: 0 0 7%;
+                        flex: 0 0 7%;
+                        max-width: 7%;
+                    }
+                    th{                        
+                        -ms-flex: 0 0 31%;
+                        flex: 0 0 31%;
+                        max-width: 31%;
+                    }
+
+                    td{
+                        -ms-flex: 0 0 31%;
+                        flex: 0 0 31%;
+                        max-width: 31%;
+
+                        word-break: break-all;
+                        text-align: center;
+
+                        border-left: 1px solid #dee2e6;
+                    }
+                    td:first-child{
+                        -ms-flex: 0 0 7%;
+                        flex: 0 0 7%;
+                        max-width: 7%;
+                        text-align: center;
+                        margin-right: -1px !important;
+
+                        border-left: none;
+                    }
+                    td:last-child{
+                        -ms-flex: none;
+                        flex: none;
+                        max-width: none;
+                        position: absolute;
+                        right: 8px;
+                        color: red;
+
+                        border-left: none;
+                        cursor: pointer;
+                    }
+                    .btn-directory-animation{
+                        display: block !important;
+                        height: 100vh !important;
+                        top: 0;
+                        background-color: white;
+                    }
+                </style>
+                <div class="container-fluid pt-1 pb-1 bg-light m-0 btn-directory" style="text-align: center;cursor: pointer;">
+                    <div class="d-block m-auto border rounded" style="height: 5px;width: 200px;background-color: rgba(34, 34, 34,1);margin-top: 2px !important;"></div>
+                    
+                    <span class="label" style="cursor: pointer;font-weight: 900;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">Go to myDirectory</span>
+
+                    <div class="d-none m-auto border rounded" style="height: 5px;width: 200px;background-color: rgba(34, 34, 34,1);margin-top: 2px !important;"></div>
+                </div>
+
+                <script>
+                    const btn = document.querySelector('.btn-directory')
+                    btn.addEventListener('click', el => {
+                        const _table = document.querySelector('table');
+                        if (_table.classList.contains('d-none')) {
+                            document.querySelector('.directory').classList.add("btn-directory-animation")
+                            document.querySelector('table').classList.remove("d-none")
+                            document.querySelector('.label').textContent = 'back to myBookList'
+                        } else {
+                            document.querySelector('.directory').classList.remove("btn-directory-animation")
+                            document.querySelector('table').classList.add("d-none")
+                            document.querySelector('.label').textContent = 'go to myDirectory'
+                        }
+
+                    })
+
+                </script>
+
+                <table class="container-fluid d-none border rounded mt-3">
+                    <tbody id="user-container"> 
+                        <!--container-fluid m-0 pl-0 pr-0 -->
+                        <tr>
+                            <th class="text-center border-right pb-1 pt-1">sr.</th>
+                            <th class="text-center border-right pb-1 pt-1">Title</th>
+                            <th class="text-center border-right pb-1 pt-1">Author</th>
+                            <th class="text-center pb-1 pt-1">ISBN</th>
+                        </tr>
+                    </tbody>       
+                </table>
+            </div>
+        </main>
+    </section>  
+<script src="myBookList2.js"></script>
+</body>
+</html>

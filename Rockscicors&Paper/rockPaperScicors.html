@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            /* font-family: 'Courier New', Courier, monospace; */
+            text-transform: uppercase;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        ::selection {
+            color: initial;
+            background-color: transparent;
+        }
+
+        main.container-fluid {
+            width: 100%;
+            height: 95vh;
+            /* background-color: antiquewhite; */
+        }
+
+        main.container-fluid>div.container {
+            max-width: 900px;
+            margin: auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 0 2rem 0 2rem;
+        }
+
+        main.container-fluid>div.container>header>h1 {
+            text-align: center;
+            font-family: fantasy;
+            font-size: 1.5rem;
+            font-weight: 200;
+            margin: 0.4rem auto;
+        }
+
+        main.container-fluid>div.container>div.main-container {
+            /* background-color: aqua; */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        main.container-fluid>div.container>div.main-container>div.point-table {
+            display: flex;
+            background-color: gainsboro;
+            padding: 0.5rem;
+        }
+
+        main.container-fluid>div.container>div.main-container>div.point-table>div {
+            flex: 1;
+            text-align: center;
+            font-size: 15px;
+        }
+
+        main.container-fluid>div.container>div.main-container>div.point-table>div.player {
+            border-right: 2px dashed grey;
+        }
+
+        main.container-fluid>div.container button#restart {
+            margin: auto;
+            margin-bottom: 0.4rem;
+            display: flex;
+        }
+
+        main.container-fluid>div.container>div.main-container>h1 {
+            font-size: 0.8rem;
+            text-align: center;
+            margin: 0.8rem 0 0.4rem 0;
+        }
+
+        main.container-fluid>div.container>div.main-container>div.tools-container {
+            /* display: flex;
+            justify-content: space-evenly; */
+            /* flex: 1; */
+            display: grid;
+            /* grid-template-columns: repeat(auto-fit, minmax(144 , 1fr)); */
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        @media screen and (max-width: 570px) {
+            main.container-fluid>div.container>div.main-container>div.tools-container {
+                /* grid-template-columns: repeat(auto-fit, minmax(144 , 1fr)); */
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            }
+        }
+
+        @media screen and (max-width: 460px) {
+            main.container-fluid>div.result-container>div.container>section {
+                flex-direction: column;
+                padding-left: 3rem;
+                padding-right: 3rem;
+            }
+            main.container-fluid>div.container {
+                padding: 0 1.4rem 0 1.4rem;
+            }
+        }
+        @media screen and (max-width: 404px) {
+            main.container-fluid>div.container>div.main-container>div.tools-container {
+                flex: 1;
+            }
+        }
+
+        main.container-fluid>div.container>div.main-container>div.tools-container>div {
+            display: grid;
+            place-items: center;
+            /* margin: 0.4rem; */
+            /* background-color: gainsboro; */
+            /* height: 100px; */
+            cursor: pointer;
+            padding: 0.4rem;
+            transition: 0.5s;
+        }
+
+        main.container-fluid>div.container>div.main-container>div.tools-container>div:hover {
+            text-shadow: 0 1px 5px blue;
+            color: blue;
+        }
+
+        main.container-fluid>div.container>div.main-container>div.tools-container>div>h1 {
+            text-shadow: 0 1px 5px #616060;
+            font-size: 8rem;
+        }
+
+        main.container-fluid>div.container>div.main-container>div.tools-container>div>h1>span {
+            font-size: 0px;
+            position: absolute;
+            opacity: 0;
+        }
+
+
+
+        main.container-fluid>div.result-container {
+            width: 100%;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 1;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: grid;
+            place-items: center;
+        }
+
+        main.container-fluid>div.result-container>div.container {
+            max-width: 800px;
+            background-color: #fff;
+            box-shadow: 0 1px 5px #0000007d;
+            padding: 1rem;
+            border-radius: 5px;
+            /* display: flex; */
+        }
+
+        main.container-fluid>div.result-container>div.container>section {
+            display: flex;
+        }
+
+        main.container-fluid>div.result-container>div.container>section>section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0.4rem;
+            position: relative;
+            /* height: 100px; */
+            width: 110px;
+            padding: 1rem;
+        }
+
+        main.container-fluid>div.result-container>div.container>section>section>div.tool h1 {
+            font-size: 6rem;
+        }
+
+        main.container-fluid>div.result-container>div.container>section>section>div.tool+div {
+            position: absolute;
+            bottom: -10px;
+            font-size: 12px;
+        }
+
+        /* main.container-fluid>div.result-container>div.container>div.grade { */
+        /* position: absolute; */
+        /* top: -0.8rem; */
+        /* } */
+
+        main.container-fluid>div.result-container>div.container>div.grade>h1 {
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        /* main.container-fluid>div.result-container>div.container>div.grade+div {
+            margin-top: 50%;
+        } */
+        /* 
+        main.container-fluid>div.result-container>div.container>div.grade+div>h1 {
+            font-size: 2rem;
+        } */
+        main.container-fluid>div.result-container>div.container>section>section.versus {
+            font-size: 2rem;
+            justify-content: center;
+        }
+
+        .d-none {
+            display: none !important;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .danger {
+            color: red;
+        }
+
+        .secondary {
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+    <main class="container-fluid">
+        <div class="container">
+            <header>
+                <h1>rock - paper - scissors</h1>
+            </header>
+            <button id="restart" class="d-none">restart</button>
+            <div class="main-container">
+                <div class="point-table">
+                    <div class="player">player : <span class="point">0</span></div>
+                    <div class="computer">Computer : <span class="point">0</span></div>
+                </div>
+                <h1>make your selection</h1>
+                <div class="tools-container">
+                    <div class="rock">
+                        <h1 class="fas fa-hand-rock"><span>rock</span></h1>
+                    </div>
+                    <div class="paper">
+                        <h1 class="fas fa-hand-paper"><span>paper</span></h1>
+                    </div>
+                    <div class="scissor">
+                        <h1 class="fas fa-hand-scissors"><span>scissor</span></h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="result-container d-none">
+            <div class="container">
+                <div class="grade">
+                    <h1>it's a draw</h1>
+                </div>
+                <section>
+                    <section class="player">
+                        <div class="tool">
+                            <h1>Rock</h1>
+                        </div>
+                        <div>
+                            you
+                        </div>
+                    </section>
+                    <section class="versus">
+                        <div>
+                            <h1 class="">v/s</h1>
+                        </div>
+                    </section>
+                    <section class="computer">
+                        <div class="tool">
+                            <h1>Rock</h1>
+                        </div>
+                        <div>
+                            computer
+                        </div>
+                    </section>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // init
+        const restartBtn = document.getElementById("restart"),
+            playerPoint = document.querySelector("main.container-fluid>div.container>div.main-container>div.point-table>div.player>span.point"),
+            computerPoint = document.querySelector("main.container-fluid>div.container>div.main-container>div.point-table>div.computer>span.point")
+
+        // Tools
+        const rock = document.querySelector("main.container-fluid>div.container>div.main-container>div.tools-container>div.rock"),
+            paper = document.querySelector("main.container-fluid>div.container>div.main-container>div.tools-container>div.paper"),
+            scissor = document.querySelector("main.container-fluid>div.container>div.main-container>div.tools-container>div.scissor")
+
+
+        // result setup
+        const result_container = document.querySelector("main.container-fluid>div.result-container")
+        const playerShow = document.querySelector("main.container-fluid>div.result-container>div.container>section>section.player>div")
+        const computerShow = document.querySelector("main.container-fluid>div.result-container>div.container>section>section.computer>div")
+        const gradeShow = document.querySelector("main.container-fluid>div.result-container>div.container>div.grade")
+        console.log(gradeShow);
+
+        // Getting for result 
+        const getResult = (el) => {
+            result_container.classList.remove("d-none")
+            let tool = ""
+            if (el.target.innerText.toLowerCase() == "rock") {
+                tool = `<h1 class="fas fa-hand-rock"></h1>`
+            }
+            if (el.target.innerText.toLowerCase() == "paper") {
+                tool = `<h1 class="fas fa-hand-paper"></h1>`
+            }
+            if (el.target.innerText.toLowerCase() == "scissor") {
+                tool = `<h1 class="fas fa-hand-scissors"></h1>`
+            }
+            playerShow.innerHTML = tool
+
+            computerTool()
+            getGrade(el.target.innerText)
+            setTimeout(getPoint(), 1)
+        }
+
+        // Get point 
+        let playerWin = +playerPoint.textContent
+        let computerWin = +computerPoint.textContent
+        const getPoint = () => {
+            playerWin = +playerPoint.textContent
+            computerWin = +computerPoint.textContent
+            // console.log(gradeShow.innerText);
+            if (gradeShow.innerText.toLowerCase() == "you win") {
+                playerWin += 1
+            }
+            if (gradeShow.innerText.toLowerCase() == "you lose") {
+                computerWin += 1
+            }
+
+            if (playerWin > 0 || computerWin > 0) {
+                restartBtn.classList.remove("d-none")
+            }
+
+            playerPoint.textContent = playerWin
+            computerPoint.textContent = computerWin
+        }
+
+        // Restart 
+        restartBtn.onclick = () => {
+            if (playerWin > 0 || computerWin > 0) {
+                restartBtn.classList.remove("d-none")
+            }
+            restartBtn.classList.add("d-none")
+
+            // clear score 
+            playerPoint.textContent = 0
+            computerPoint.textContent = 0
+        }
+
+
+        result_container.onclick = (el) => {
+            result_container.classList.add("d-none")
+        }
+
+        rock.addEventListener("click", getResult)
+        paper.addEventListener("click", getResult)
+        scissor.addEventListener("click", getResult)
+
+
+        // result for computer 
+        const computerTool = () => {
+            const randomNum = Math.random()
+            let tool = ""
+            if (randomNum > 0.85) {
+                tool = '<h1 class="fas fa-hand-rock"></h1>'
+            } else if (randomNum > 0.75) {
+                tool = '<h1 class="fas fa-hand-paper"></h1>'
+            }
+            else if (randomNum > 0.65) {
+                tool = '<h1 class="fas fa-hand-scissors"></h1>'
+            }
+            else if (randomNum > 0.55) {
+                tool = '<h1 class="fas fa-hand-scissors"></h1>'
+            }
+            else if (randomNum > 0.45) {
+                tool = '<h1 class="fas fa-hand-rock"></h1>'
+            }
+            else if (randomNum > 0.35) {
+                tool = '<h1 class="fas fa-hand-paper"></h1>'
+            }
+            else if (randomNum > 0.25) {
+                tool = '<h1 class="fas fa-hand-paper"></h1>'
+            } else if (randomNum > 0.10) {
+                tool = '<h1 class="fas fa-hand-rock"></h1>'
+            }
+            else {
+                tool = '<h1 class="fas fa-hand-scissors"></h1>'
+            }
+            computerShow.innerHTML = tool
+            computerValue = computerShow.querySelector("h1")
+        }
+
+        const getGrade = (playerShow) => {
+            let grade = ""
+            if (playerShow.toLowerCase() == "rock" && computerValue.className == "fas fa-hand-paper") {
+                grade = `<h1 class="danger">you lose</h1>`
+            }
+            if (playerShow.toLowerCase() == "rock" && computerValue.className == "fas fa-hand-scissors") {
+                grade = `<h1 class="success">you win</h1>`
+            }
+
+            if (playerShow.toLowerCase() == "paper" && computerValue.className == "fas fa-hand-scissors") {
+                grade = `<h1 class="danger">you lose</h1>`
+            }
+            if (playerShow.toLowerCase() == "paper" && computerValue.className == "fas fa-hand-rock") {
+                grade = `<h1 class="success">you win</h1>`
+            }
+
+            if (playerShow.toLowerCase() == "scissor" && computerValue.className == "fas fa-hand-rock") {
+                grade = `<h1 class="danger">you lose</h1>`
+            }
+            if (playerShow.toLowerCase() == "scissor" && computerValue.className == "fas fa-hand-paper") {
+                grade = `<h1 class="success">you win</h1>`
+            }
+            if (playerShow.toLowerCase() == "scissor" && computerValue.className == "fas fa-hand-scissors") {
+                grade = `<h1 class="secondary">it's a draw</h1>`
+            }
+
+            if ("fas fa-hand-" + playerShow.toLowerCase() == computerValue.className) {
+                grade = `<h1 class="secondary">it's a draw</h1>`
+            }
+            gradeShow.innerHTML = grade
+        }
+
+
+
+        console.log(playerShow, computerShow);
+    </script>
+
+</body>
+
+</html>

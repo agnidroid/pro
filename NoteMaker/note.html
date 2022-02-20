@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notes - Keep Your Notes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .hidden {
+            display: none;
+        }
+        .body{
+
+        }
+        .body .container{
+            
+        }
+        .body .container .header {
+            display: flex;
+            padding: 15px 10px;
+            position: sticky;
+            top: 0;
+            background-color: #fff;
+            box-shadow: 0 .8px 5px #00000080;
+        }
+        .body .container .header .header__left{
+            text-transform: uppercase;
+            text-shadow: 0 0 1px #333;
+            flex: .3;
+            font-size: 13px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .body .container .header .header__left > a > img{
+            width: 30px;
+            height: 30px;
+            margin: -2px 3px 0 0;
+        }
+        
+        .body .container .header .header__left > a {
+            color: #333;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            text-shadow: 0 2px 4px #00000080;
+        }
+
+        .body .container .header .header__left > a > .fa-sticky-note{
+            font-size: 26px;
+            margin: 0 5px 0 0;
+        }
+        .body .container .header .header__left > a > h1{
+            /* text-shadow: -3px 0 #007bff, 0 -3px #007bff, 3px 0 #007bff, 0 3px #007bff;
+            letter-spacing: 4px; */
+        }
+
+        .body .container .header .header__right{
+            flex: 1.7;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            /* text-shadow: 0 2px 4px #00000080; */
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+
+/* Hedaer right start */
+
+        .body .container .header .header__right > ul.menu__container{
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+        .body .container .header .header__right > ul.menu__container li.menu{
+            /* margin: 0 10px; */
+            position: relative;
+            /* background-color: red; */
+            padding: 0 15px;
+        }
+        /* .body .container .header .header__right > ul.menu__container li.menu:hover .user__info {
+            display: block;
+        } */
+        .body .container .header .header__right > ul.menu__container li.menu > a.fa-user{
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            transition: all 0.9s ease-in-out linear;
+            display: flex;
+            justify-content: center;
+        }
+        .body .container .header .header__right > ul.menu__container li.menu > a.fa-user:hover{
+            background-color: black;
+            color: white;
+            text-shadow: 0px 0px 2px #262626;
+            box-shadow: 0px 0px 3px #333;
+        }
+
+
+        .body .container .header .header__right > ul.menu__container li.menu .user__info{
+            background-color: #fff;
+            box-shadow: 0 0 5px #262626;
+            width: 300px;
+            z-index: 9999;
+            text-align: center;
+            border-radius: 5px;
+            position: absolute;
+            right: -5px;
+            top: 30px;
+        }
+        .body .container .header .header__right > ul.menu__container li.menu .user__info header{
+            display: flex;
+            text-align: unset;
+            align-items: center;
+            background-color: #262626;
+            padding: 15px 10px;
+            border-radius: 5px 5px 0 0;
+            color: #fff;
+        }
+        .body .container .header .header__right > ul.menu__container li.menu .user__info > .user__Profile{
+            background-color: #262626;
+            margin: auto;
+            padding: 3px 10px 10px 10px;
+            border-radius: 0 0 50% 50%;
+            width: max-content;
+            position: relative;
+            top: -25px;
+        }
+
+        .body .container .header .header__right > ul.menu__container li.menu .user__info > .user__Profile > div{
+            border: 2px solid #fff;
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+
+        .body .container .header .header__right > ul.menu__container li.menu .user__info > .user__Profile .fa-user {
+            width: 60px;
+            height: 60px;
+            font-size: 25px;
+            border-radius: 50%;
+            display: grid;
+            color: #fff;
+            background-color: #262626;
+            /* background-color: grey; */
+            place-items: center;
+        }
+        .body .container .header .header__right > ul.menu__container li.menu .user__info > .user__name{
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            width: 70%;
+            margin: auto;
+            margin-top: -10px;
+            word-wrap: break-word;
+            word-break: normal;
+            position: relative;
+        }
+        .body .container .header .header__right > ul.menu__container li.menu .user__info > .user__name::after{
+            content: "\f005";
+            text-shadow: 0 0 3px #fff;
+            width: 100%;
+            height: 2.5px;
+            border-radius: 2px;
+            background-color: black;
+            position: absolute;
+            font-family: "Font Awesome 5 Free";
+            bottom: -10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            right: 0;
+        }
+        .body .container .header .header__right > ul.menu__container li.menu .user__info > .user__email{
+            font-size: 12px;
+            margin-top: 20px !important;
+            margin: auto;
+            font-weight: 600;
+            width: 80%;
+            word-wrap: break-word;
+            word-break: normal;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        .body .container .header .header__right > ul.menu__container li.menu .user__info > .user__logout__btn{
+            outline: none;
+            color: #262626;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-weight: 600px;
+            padding: 5px 10px;
+            background-color: transparent;
+            border-radius: 5px;
+            border: 2px solid #262626;
+            cursor: pointer;
+        }
+        .body .container .header .header__right > ul.menu__container li.menu .user__info > .user__logout__btn:hover{
+            border: 2px solid red;
+            box-shadow: 0 0 5px red;
+            color: red;
+            text-shadow: 0 0 1px red;
+            transition: all .45s cubic-bezier(0.65, 0, 0.076, 1);
+        }
+
+
+
+
+
+
+
+
+
+
+/* Hedaer right end */
+
+        .body .container .header .header__right > span{
+            font-size: 10px;
+            margin-right: 4px;
+            font-weight: 700;
+            font-family: monospace;
+            margin-top: 5px;
+        }
+        .body .container .header .header__right a{
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #262626;
+        }
+        .body .container .header .header__right a > img{
+            width: 25px;
+            height: 25px;
+        }
+        .body .container .header .header__right a > h1{
+            font-size: 15px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        .body .container .header .header__right a > h1 > span{
+            color: #007bff;
+        }
+
+        .body .container > div > .addNote{
+            border: none;
+            outline: none;
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 30px;
+            display: block;
+            margin: 10px 10px 10px auto;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+        .body .container > div > .addNote:hover{
+            box-shadow: 0 0 6px 1px #333;
+            transition: all .45s cubic-bezier(0.65, 0, 0.076, 1);
+            background-color: #262626;
+            color: #fff;
+            text-shadow: 0 0px 2px #fff;
+        }
+        .body .container > div.main{
+            height: calc(100vh - 150px);
+            padding: 10px 20px;
+            overflow-y: auto;
+        }
+        .body .container > div.main > div{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            width: 100%;
+            justify-content: start;
+        }
+        .body .container > div.main > div > div{
+            background-color: #fff;
+            height: 180px;
+            margin: 20px;
+            border-radius: 5px;
+            /* box-shadow: 0px 0px 5px 3px #00000080; */
+            box-shadow: 0 0px 4px #262626;
+            display: flex;
+            flex-direction: column;
+            /* max-width: 330px; */
+            max-width: 500px;
+            min-width: 250px;
+        }
+        .body .container > div.main > div > div > header {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-family: Arial, Helvetica, sans-serif;
+            background-color: #262626;
+            color: #fff;
+        }
+        .body .container > div.main > div > div > header > span:first-child{
+            flex: 1;
+            margin-left: 10px;
+            font-size: 10px;
+            font-weight: bold;
+        }
+        .body .container > div.main > div > div > header > i {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            margin: 5px;
+            transition: all .45s cubic-bezier(0.65, 0, 0.076, 1);
+            cursor: pointer;
+            font-size: 10px;
+        }
+        .body .container > div.main > div > div > header > i.fa-save:hover{
+            background-color: #fff;
+            color: #262626;
+        }
+        .body .container > div.main > div > div > header > i.fa-trash-alt:hover{
+            background-color: #fff;
+            color: #262626;
+        }
+        .body .container > div.main > div > div > header > i:hover{
+            /* background-color: gold; */
+            box-shadow: 0 0 4px #fff;
+            /* color: #fff; */
+        }
+        .body .container > div.main > div > div > main {
+            flex: 1;
+            font-size: 14px;
+            text-transform: capitalize;
+            max-height: calc(100% - 30px);
+        } 
+        .body .container > div.main > div > div > main ::-webkit-scrollbar-thumb{
+            width: 1px !important;
+        }
+        .body .container > div.main > div > div > main ::-webkit-scrollbar{
+            width: 1px !important;
+        }
+        .body .container > div.main > div > div > main > .display ::selection{
+            background-color: #fff;
+            color: initial;
+        }
+
+        .body .container > div.main > div > div > main > .display {
+            overflow-y: auto;
+            padding: 10px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            height: 100%;
+            word-wrap: break-word !important;
+            word-break: normal;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .body .container > div.main > div > div > main > textarea {
+            overflow-y: auto;
+            padding: 10px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            outline: none;
+            border: none;
+            height: 100%;
+            border-radius: 0 0 5px 5px;
+            word-wrap: break-word !important;
+            word-break: normal;
+            max-height: 100%;
+            max-width: 100%;
+            min-height: 100%;
+            min-width: 100%;
+            background-color: rgba(192, 192, 192, 0.103);
+            overflow-y: auto;
+        }
+        @media screen and (max-width: 550px) {
+            .body .container > div.main > div > div{
+                max-width: 100%;
+            }
+        }
+
+
+        .body > div.signin {
+            width: 100%;
+            /* height: calc(100vh - 150px); */
+            height: 100vh;
+            overflow-y: auto;
+            background-color: #fff;
+            display: grid;
+            place-items: center;
+        }
+        .body > div.signin > form > div{
+            width: 500px;
+            box-shadow: 0 1px 4px black;
+            padding: 20px;
+            border-radius: 0 0 15px 15px;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+
+        }
+        .body > div.signin > form > div > h1 {
+            margin: 0 10px 10px 10px;
+        }
+        .body > div.signin > form > div > input{
+            font-size: 17px;
+            margin: 10px;
+            padding: 5px;
+        }
+        .body > div.signin > form > div > input[type="submit"]{
+            background-color: #333;
+            color: #fff;
+            border: none;
+            box-shadow: 0 0 3px black;
+            cursor: pointer;
+            border-radius: 5px;
+            padding:10px;
+        }        
+        .body > div.signin > form > div > input.name, .body > div.signin > form > div > input.email {
+            border: none;
+            border-bottom: 1px solid rgb(185, 185, 185);
+            outline: none;
+            margin: 10px;
+            /* padding-left: 20px; */
+            display: flex;
+            align-items: center;
+        }
+        /* .body > div.signin > form > div > input.password::placeholder{
+            top: 8px;
+            font-size: 25px;
+            position: relative;
+        } */
+        /* .body > div.signin > form > div > input.name::before{
+            content: "/f007";
+            font-family: "Font Awesome 5 Free";
+            left: 0;
+            top: 0;
+            background-color: red;
+            font-size: 20px;
+            width: 50px;
+            height: 50px;
+        } */
+        @media screen and (max-width: 520px) {
+            .body > div.signin > form > div{
+                width: 90vw;
+            }
+        }
+    </style>
+    
+</head>
+<body>
+    
+    <div class="body">
+        <div class="signin">
+            <form action="">
+                <div>
+                    <h1>SignIn</h1>
+                    <input type="text" required class="name" maxlength="26" placeholder="John Doe">
+                    <input type="email" required class="email" maxlength="40" placeholder="john@gmail.com">
+                    <!-- <input type="password" required class="password" maxlength="22" placeholder="********"> -->
+                    <input type="submit" value="Submit">
+                </div>
+            </form>
+        </div>
+
+        <div class="container">
+            <header class="header">
+                <div class="header__left">
+                    <a href="">
+                        <!-- <img src="https://patrickbalestra.com/NotesForWatch/assets/icon.png" alt=""> -->
+                        <i class="fas fa-sticky-note"></i>
+                        <h1>Notes</h1>
+                    </a>
+                </div>
+                <div class="header__right">
+                    <ul class="menu__container">
+                        <li class="menu"><a href="https://pmnpn7iwkoee7h7wuwub6g-on.drv.tw/ABHISHEK/" target="_blank">About</a></li>
+                        <li class="menu">
+                            <a class="fa fa-user"></a>
+                            <div class="user__info user__info__inside hidden">
+                                <header class="user__info__inside">
+                                    <span class="user__info__inside">My Account</span>
+                                </header>
+                                <div class="user__Profile user__info__inside">
+                                    <!-- <img src="" class="fa fa-user" alt=""> -->
+                                    <div class="user__info__inside">
+                                        <i class="fa fa-user user__info__inside"></i>
+                                    </div>
+                                </div>
+                                <div class="user__name user__info__inside"></div>
+                                <div class="user__email user__info__inside"></div>
+                                <button class="user__logout__btn user__info__inside">Logout</button>
+                            </div>
+                        </li>
+                    </ul>
+                    <!-- <span>From </span>
+                    <a href="">
+                        <img src="./logo.png" alt="">
+                        <h1>tech<span>nerd.in</span></h1>
+                    </a>                     -->
+                </div>
+            </header>
+
+            <div>
+                <button class="addNote" onclick="addNote()" title="Click to Add New Note">Add Note</button>
+            </div>            
+
+            <div class="main">
+                <div></div>   
+            </div>
+        </div>
+    </div>
+
+    
+
+
+
+    <script>
+        const signinContainer = document.querySelector(".body > .signin")
+        const mainContainer = document.querySelector(".body > .container")
+
+        console.log(signinContainer);
+        console.log(mainContainer);
+
+        // Show User profile
+        const userBtn = document.querySelector(".body .container .header .header__right > ul.menu__container li.menu > a.fa-user")
+        console.log(userBtn);
+        window.onclick = el => {
+            console.log(el.target);
+            if (el.target.classList.contains("user__info__inside")) {
+                userBtn.nextElementSibling.classList.remove("hidden")
+            }      
+            else if(el.target === userBtn){
+                userBtn.nextElementSibling.classList.toggle("hidden")
+            }else{
+                userBtn.nextElementSibling.classList.add("hidden")
+            }
+        }
+
+
+        // Update local storage data
+        const updateLSData = () => {
+            const notePads = document.querySelectorAll('textarea')
+            const notes = []
+
+            notePads.forEach(note => {
+                return notes.push(note.value)
+            })
+            localStorage.setItem("notes", JSON.stringify(notes))
+        }
+        function addNote(text="") {
+            // NOTES HUB
+            const notes__area = document.querySelector(".body .container > div.main > div")
+            // Create a div
+            const note = document.createElement("div")
+            let date = new Date()
+            date = `${date.getDate()} / ${date.getMonth()} / ${date.getFullYear()}`
+            note.innerHTML = `
+                    <header>
+                        <span>Created on ( ${date} )</span>
+                        <i class="fas fa-save" title="Click to save"></i>
+                        <i class="fas fa-trash-alt" title="Click to Delete"></i>
+                    </header>
+                    <main>
+                        <div class="display ${text ? "" : "hidden"}" title="Click to Edit">${text}</div>
+                        <textarea class="${text ? "hidden" : ""}">${text}</textarea>   
+                    </main>
+            `
+            notes__area.appendChild(note) 
+            
+            // getting the references
+            const saveBtn = note.querySelector(".fa-save")
+            const deleteBtn = note.querySelector(".fa-trash-alt")
+            const mainDiv = note.querySelector(".display")
+            const textarea = note.querySelector("textarea")
+
+            // Deleting the note
+            deleteBtn.onclick = (el) => {
+                note.remove()
+
+                updateLSData()
+            }
+            saveBtn.onclick = el => {
+                text = textarea.value
+                textarea.value = text
+                mainDiv.innerHTML = text
+
+                if (!textarea.classList.contains("hidden")) {
+                    textarea.classList.add("hidden")
+                    mainDiv.classList.remove("hidden")
+                }
+
+                updateLSData()
+            }
+
+            mainDiv.onclick = el => {
+                textarea.classList.remove("hidden")
+                mainDiv.classList.add("hidden")
+            }
+
+        }
+
+        const notesFromLS = JSON.parse(localStorage.getItem("notes"))
+        if (notesFromLS) notesFromLS.forEach(note => addNote(note) )
+         
+    /*    const notes__area = document.querySelector(".body .container > div.main > div")
+
+        const main = () => {
+            const trash = document.querySelectorAll(".fa-trash-alt")
+            const savebtn = document.querySelectorAll(".fa-save")
+            const main_container = document.querySelectorAll(".body .container > div.main > div > div > main")
+
+            
+            // textP.forEach(textP => {
+            //     if (textP.style.display != "none") {
+            //         textP.focus()
+            //     }
+            // })
+
+            // Update local storage data
+            const updateLSData = () => {
+                const notePads = document.querySelectorAll('textarea')
+                const notes = []
+
+                notePads.forEach(note => {
+                    return notes.push(note.value)
+                })
+                localStorage.setItem("notes", JSON.stringify(notes))
+            }
+            
+            // Remove Notepad
+            trash.forEach(trash => {
+                trash.addEventListener("click", el => {
+                    el.target.parentElement.parentElement.remove()
+                    
+                    updateLSData()
+                })
+            })
+
+            // Append text Into display
+            main_container.forEach(main => {
+                // const text = main.querySelector("textarea").value
+                // main.querySelector(".display").innerHTML = text
+
+                main.querySelector(".display").addEventListener("click", el => {
+                    el.target.style.display = "none"
+                    el.target.parentElement.querySelector("textarea").style.display = "block"
+                    el.target.parentElement.querySelector("textarea").focus()
+                })
+            })
+
+            // save Note
+            savebtn.forEach(savebtn => {
+                savebtn.addEventListener("click", el => {
+                    el.target.parentElement.nextElementSibling.querySelector("textarea").style.display = "none"
+                    el.target.parentElement.nextElementSibling.querySelector(".display").style.display = "block"
+                    // el.target.nextElementSibling.querySelector("textarea").style.display = "none"
+
+                    
+                    updateLSData()
+                })
+            })
+            
+            setTimeout(main, 1)
+        }
+        
+        console.log(notes__area);
+
+        function addNote(text) {
+            const div = document.createElement("div")
+            let date = new Date()
+            date = `${date.getDate()} / ${date.getMonth()} / ${date.getFullYear()}`
+            div.innerHTML = `
+                    <header>
+                        <span>Created on ( ${date} )</span>
+                        <i class="fas fa-save" title="Click to save"></i>
+                        <i class="fas fa-trash-alt" title="Click to Delete"></i>
+                    </header>
+                    <main>
+                        <div class="display" title="Click to Edit">${text == undefined ? "" : text}</div>
+                        <textarea autofocus="true" placeholder="enter..." value="${text == undefined ? "text" : text}"></textarea>   
+                    </main>
+            `
+            notes__area.appendChild(div)
+
+            
+        }
+
+        const notesFromLS = JSON.parse(localStorage.getItem("notes"))
+        if (notesFromLS) notesFromLS.forEach(note => addNote(note) )
+
+        main()
+        */
+    </script>
+
+<script>
+    const userInfo = userBtn.nextElementSibling
+    const logoutBtn = userInfo.querySelector(".user__logout__btn")
+    const form = document.querySelector(".body > .signin > form")
+
+
+    form.onsubmit = el => {
+        el.preventDefault()
+        const name = form.querySelector(".name")
+        const email = form.querySelector(".email")
+
+        userInfo.querySelector(".user__name").textContent = name.value
+        userInfo.querySelector(".user__email").textContent = email.value
+
+        // mainContainer.classList.remove("hidden")
+        // signinContainer.classList.add("hidden")
+
+        updateUserLS([name.value, email.value])
+
+        name.value = ""
+        email.value = ""
+    }
+
+    function fun2() {
+        const userFromLS = JSON.parse(localStorage.getItem("user"))
+        if (userFromLS) {
+            userInfo.querySelector(".user__name").textContent = userFromLS[0]
+            userInfo.querySelector(".user__email").textContent = userFromLS[1]
+
+            mainContainer.style.display = "block"
+            signinContainer.style.display = "none"
+        }else{
+            mainContainer.style.display = "none"
+            signinContainer.style.display = "grid"
+        }
+        setTimeout(fun2, 1)
+    }
+    
+
+    function updateUserLS (user) {
+        console.log(user);
+        // const users = 
+        localStorage.setItem("user", JSON.stringify(user))
+    }
+
+    logoutBtn.onclick = el => {
+        // userInfo.querySelector(".user__name").textContent = ""
+        // userInfo.querySelector(".user__email").textContent = ""
+        // updateUserLS()
+
+        localStorage.removeItem("user")
+        // signinContainer.classList.remove("hidden")
+        // mainContainer.classList.add("hidden")
+    }
+
+    
+
+    fun2()
+    
+    
+</script>
+
+</body>
+</html>

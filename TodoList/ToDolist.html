@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TODOs List</title>
+    <link rel="stylesheet" href="bootstrap.css">
+
+    <style>
+        table + div {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            /* margin-top: -1.5rem; */
+            position: relative;
+            top: -0.6rem;
+        }
+        div.table-container {
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+        /* tbody { */
+            /* min-height: 300px; */
+        /* } */
+    </style>
+</head>
+
+<body>
+
+    <div class="container my-4">
+        <h2 class="text-center">TODOs List</h2>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" id="title" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" rows="" class="form-control"></textarea>
+        </div>
+        <button class="btn btn-sm btn-outline-primary" id="add">Add to list</button>
+        <button class="btn btn-sm btn-outline-danger" onclick="clearStorage()">Clear list</button>
+
+        <div class="table-container">
+            <table class="table my-4">
+                <thead class="thead">
+                    <th>SrNO.</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Timestamp</th>
+                    <th>Action</th>
+                </thead>
+    
+                <tbody>
+                    <!-- <tr> -->
+                        <!-- <td class="w-100">No Item Available!</td> -->
+                    <!-- </tr> -->
+                </tbody>
+            </table>
+            <div></div>
+        </div>
+    </div>
+
+
+    <script>
+        // Init 
+        let _title = document.getElementById("title"),
+            _Description = document.getElementById("description"),
+            tableBody = document.querySelector("tbody"),
+            addBtn = document.getElementById("add")
+
+
+        // Get data from localStorage
+        const getLSData = () => {
+            let output = ""
+            if (localStorage.getItem("Todos List") != null) {
+                if (localStorage.getItem("Todos List").length == 2) {
+                    // output = `
+                    // <tr class="w-100">
+                    //     <td>No Item Available!</td>
+                    // </tr>`
+                //     output = `<span class="text-center">
+                // No Item Available!
+                // </span>
+                // `
+                    document.querySelector("table + div ").innerHTML = "No Item Available!"
+                    output = ""
+                } else {
+                    let lSData = localStorage.getItem("Todos List")
+                    JSON.parse(lSData).forEach((element, index) => {
+                        output += `
+                        <tr>
+                            <td>${index + 1}.</td>
+                            <td>${element[0]}</td>
+                            <td>${element[1]}</td>
+                            <td>${element[2]}</td>
+                            <td><button class="btn btn-sm btn-outline-danger" onclick="deleteItem(${index})">Delete</button></td>
+                        </tr>`
+                    });
+
+                    // document.querySelector("table + div ").classList.add("d-none")
+                    document.querySelector("table + div ").innerHTML = ""
+                }
+            } else {
+                // output = `
+                // <tr class="w-100">
+                //     <td>No Item Available!</td>
+                // </tr>`
+
+                document.querySelector("table + div ").innerHTML = "No Item Available!"
+                output = ""
+            }
+            tableBody.innerHTML = output
+        }
+
+        // Update localStorage data
+        addBtn.onclick = () => {
+            updateLs()
+        }
+        let data = []
+        const updateLs = () => {
+            if (_title.value !== "" && _Description.value !== "") {
+                if (localStorage.getItem("Todos List") == null) {
+                    data.push([_title.value, _Description.value, `${new Date().toLocaleTimeString()} - ${new Date().toLocaleDateString()}`])
+                    localStorage.setItem("Todos List", JSON.stringify(data))
+                    console.log("updating...");
+                } else {
+                    fromLS = localStorage.getItem("Todos List")
+                    data = JSON.parse(fromLS)
+
+                    data.push([_title.value, _Description.value, `${new Date().toLocaleTimeString()} on ${new Date().toLocaleDateString()}`])
+                    localStorage.setItem("Todos List", JSON.stringify(data))
+                }
+            }
+            _title.value = ""
+            _Description.value = ""
+
+            setTimeout(getLSData, 1)
+        }
+
+        // Delete Item 
+        const deleteItem = (itemIndex) => {
+            console.log(itemIndex);
+            fromLS = localStorage.getItem("Todos List")
+            data = JSON.parse(fromLS)
+            console.log(data);
+            data.splice(itemIndex, 1)
+            localStorage.setItem("Todos List", JSON.stringify(data))
+
+
+            setTimeout(getLSData, 1)
+        }
+
+        // Clear storage 
+        function clearStorage() {
+            if (localStorage.getItem("Todos List").length != 2) {
+                if (confirm("Are you really want to clear storage?")) {
+                    // localStorage.clear("Todos List")
+                    data = []
+                    localStorage.setItem("Todos List", JSON.stringify(data))
+                    setTimeout(getLSData, 1)
+                }
+            } else {
+                alert("No item Available!")
+            }
+        }
+        getLSData()
+
+        console.log(localStorage.getItem("Todos List").length);
+    </script>
+</body>
+
+</html>

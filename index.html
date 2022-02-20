@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <title>Student Management System</title>
+    
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
+        .body{
+            height: 100vh;
+            width: 100%;
+            display: grid;
+            place-items: center;
+            background-color: #fff;
+            font-family: monospace;
+            color: #262626;
+            text-align: center;
+            text-shadow: 0px 0px 5px #333;
+        }
+        .body h1{
+            font-size: 42px;
+            text-shadow: 0px 0px 5px #333;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-black">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="<?if?>">Student Management System</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="Notemaker/note.html">Notes</a>
+                    </li>
+                    <li class="nav-item">
+                     <!--   <a class="nav-link" href="#">Link</a>-->
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                          MiniProject
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#"></a></li>
+                            <li><a class="dropdown-item" href="TodoList\ToDolist.html">TO-DOlist</a></li>
+                            <li>
+                            <li><a class="dropdown-item" href="#"></a></li>
+                            <li><a class="dropdown-item" href="tempCalculator/temperature.html">TempCalculator</a></li>
+                            <li>
+                            <li><a class="dropdown-item" href="#"></a></li>
+                            <li><a class="dropdown-item" href="Rockscicors&Paper/rockPaperScicors.html">RockPaperScicors</a></li>
+                            <li>
+                            <li><a class="dropdown-item" href="#"></a></li>
+                            <li><a class="dropdown-item" href="myBookList/booklist.html">myBookList</a></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="https://abhishekraj.netlify.app/" target="blank">AboutUs</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+
+    <div class="body">
+        <div class="root"></div>
+    </div>
+
+    <script src="./index.js"></script>
+    <script>
+        let root = document.querySelector('.root')
+        function showTime(){
+
+            let date = new Date()
+            let day = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+
+            let greet = ""
+
+            if (date.getHours() > 5 && date.getHours() < 12) {
+                greet = "Good Morning"
+            }
+            else if(date.getHours() >= 12 && date.getHours() < 18) {
+                greet = "Good Afternoon"
+            }
+            else {
+                greet = "Good Evening"
+            }
+
+            root.innerHTML = `
+            <h1>${new Date().toLocaleTimeString()}</h1>
+            <h2>${new Date().getDate()}/${new Date().getMonth()+1}/${new Date().getFullYear()}, ${day[new Date().getDay()]}</h2>
+            <h3>${greet}</h3>
+            `
+
+            setTimeout(showTime, 1000);
+        }
+        showTime()
+    </script>
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
+</body>
+
+</html>

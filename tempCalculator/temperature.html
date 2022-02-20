@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Temperature Convertion</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
+            /* font-family: 'Trebuchet MS'; */
+            /* font-family: cursive; */
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+        }
+        .body{
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.1));
+            display: grid;
+            place-items: center;
+            height: 100vh;
+        }
+        .body .container{
+            width: 400px;
+        }
+        .body .container > h1{
+            color: #fff; 
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+        .body .container > div{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            /* background-color: ; */
+            padding: 30px;
+            border-radius: 10px;
+        }
+        .body .container > div > form{
+            flex: 1;
+            text-align: center;
+            display: grid;
+            grid-template-columns: .7fr 1.3fr;
+            grid-template-rows: 100px;
+            grid-gap: 10px;
+        }
+
+        .body .container > div > form > div{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        .body .container > div > form > div > select{
+            flex: 1;
+            margin: 10px 0;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid #fff;
+            color: #fff;
+            background-color: transparent;
+            width: 90px;
+        }
+        .body .container > div > form > div > select:focus{
+            /* background-color: rgba(142, 142, 142, .7); */
+        }
+        .body .container > div > form > div > input{
+            flex: 1;
+            background-color: transparent;
+            outline: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            width: 100%;
+            text-align: right;            
+            margin: 10px 0;
+        }
+        .body .container > div > form > div > input::placeholder{
+            color: rgb(230, 227, 227);
+        }
+        /* .body .container > div > form > select{
+            
+        } */
+        
+        .body .container > div > form > div > output{
+            color: #fff;
+            flex: 1;
+            text-align: right;
+            margin: 10px 0;
+            font-size: 18px;
+            margin-bottom: -10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="body">
+        <div class="container">
+            <h1>Temperature Convertion</h1>
+            <div>
+                <form>   
+                    <div>
+                        <select name="" id="from">
+                            <option value="Fahrenheit">Fahrenheit</option>
+                            <option value="Celcius">Celcius</option>
+                            <option value="Kelvin">Kelvin</option>
+                        </select>
+                        <select name="" id="to">
+                            <option value="Fahrenheit">Fahrenheit</option>
+                            <option value="Celcius">Celcius</option>
+                            <option value="Kelvin">Kelvin</option>
+                        </select>
+                    </div>                 
+                    
+                    <div>
+                        <input type="text" name="" id="magnitude" value="" placeholder="0"  maxlength="18">
+                        <output></output>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Init
+        const from = document.querySelector("#from")
+        const to = document.querySelector("#to")
+        let magnitude = document.querySelector("#magnitude")
+        const output = document.querySelector("output")
+        const submit = document.querySelector("#submit")
+        const form = document.querySelector("form")
+
+        form.addEventListener("submit", el => {
+            el.preventDefault()
+        })
+
+        from.addEventListener("change", convertion)
+        to.addEventListener("change", convertion)
+        magnitude.addEventListener("keyup", convertion)
+        magnitude.addEventListener("change", convertion)
+        window.addEventListener("load", convertion)
+
+        function convertion () {
+
+            if (magnitude.value.length == 0) {
+                output.value = ``
+                console.log(``);
+            }
+            else if(from.value == "Fahrenheit"){
+                if(to.value == "Fahrenheit"){
+                    output.value = `= ${magnitude.value} F`
+                    console.log(`= ${magnitude.value} F`);
+                }
+                else if (to.value == "Celcius"){
+                    output.value = `= ${100 - ((212 - magnitude.value) * 5 / 9)} C`
+                    console.log(`= ${100 - ((212 - magnitude.value) * 5 / 9)} C`);
+                }
+                else if (to.value == "Kelvin"){
+                    output.value = `= ${373.15 - ((212 - magnitude.value) * 5 / 9)} k`
+                    console.log(`= ${373.15 - ((212 - magnitude.value) * 5 / 9)} k`);
+                }
+            }
+            else if (from.value == "Celcius"){
+                if(to.value == "Fahrenheit"){
+                    output.value = `= ${212 - ((100 - magnitude.value) * 9 / 5)} F`
+                    console.log(`= ${212 - ((100 - magnitude.value) * 9 / 5)} F`);
+                }
+                else if (to.value == "Celcius"){
+                    output.value = `= ${magnitude.value} C`
+                    console.log(`= ${magnitude.value} C`)
+                }
+                else if (to.value == "Kelvin"){
+                    output.value = `= ${273.15 + Number(magnitude.value)} k`
+                    console.log(`= ${273.15 + Number(magnitude.value)}`);
+                }
+            }
+            else if (from.value == "Kelvin"){
+                if(to.value == "Fahrenheit"){
+                    output.value = `= ${212 - ((373.15 - magnitude.value) * 9 / 5)} F`
+                    console.log(`= ${212 - ((373.15 - magnitude.value) * 9 / 5)} F`);
+                }
+                else if (to.value == "Celcius"){
+                    output.value = `= ${273.15 - Number(magnitude.value)} C`
+                    console.log(`= ${273.15 - Number(magnitude.value)} C`);
+                }
+                else if (to.value == "Kelvin"){
+                    output.value = `= ${magnitude.value} k`
+                    console.log(`= ${magnitude.value} k`);
+                }
+            }
+        }
+
+    </script>
+</body>
+</html>
